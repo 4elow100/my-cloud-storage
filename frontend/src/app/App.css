@@ -1,8 +1,22 @@
 #root {
-    max-width: 1280px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-width: 1000px;
+    height: 100vh;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0;
     text-align: center;
+}
+
+
+
+.btn {
+
+}
+
+.btn:hover {
+    cursor: pointer;
 }
 
 /*
@@ -13,30 +27,28 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    width: 80vw;
+    width: 100%;
     height: 50px;
     margin: 0 auto 30px;
 
-    border: 1px solid black;
+    background-color: white;
 }
 
 .header-logo {
-    width: 50px;
-    border: 1px solid red;
-}
-
-.header-logo:hover {
-    cursor: pointer;
-}
-
-.header-search-container {
+    box-sizing: border-box;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
     width: 150px;
-    border: 1px solid red;
+    height: 50px;
+    padding-left: 10px;
 }
 
-.header-user-container {
-    width: 50px;
-    border: 1px solid red;
+.header-cloud-icon {
+    width: 30px;
+    height: 30px;
+
 }
 
 .add-file-btn {
@@ -66,3 +78,206 @@
     color: red;
     margin-top: 0.5rem;
 }
+
+.icon-test {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid firebrick;
+    text-align: center;
+    vertical-align: center;
+}
+
+
+/*
+  =================================================================================
+*/
+
+.main-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.header-search-area, .header-user-area {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.search-container {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 300px;
+    height: calc(100% - 20px);
+
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+
+    overflow: hidden;
+}
+
+.search-input {
+    flex: 1 1 auto;
+    height: 100%;
+    padding: 0 10px;
+
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.search-btn {
+    position: relative;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-btn:after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 0;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.upload-file-btn {
+    height: calc(100% - 20px);
+    padding: 0 10px;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    outline: none;
+}
+
+.storage-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px 50px;
+
+}
+
+.storage-header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.storage-header-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.storage-list-row {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+.user-profile-container {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.user-profile-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.table-header {
+    display: flex;
+}
+
+.table-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 160px);
+
+    overflow: scroll;
+}
+
+.storage-row-name, .table-header-name {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.storage-row-size, .table-header-size {
+    flex-basis: 70px;
+}
+
+.storage-row-uploaded, .storage-row-downloaded,
+.table-header-uploaded, .storage-row-downloaded {
+    flex-basis: 50px;
+}
+
+.storage-row-comment, .storage-row-comment {
+    flex-basis: 100px;
+}
+
+.grid-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    align-items: start;
+    gap: 20px;
+
+    width: 100%;
+    max-height: calc(100vh - 160px);
+
+    overflow: scroll;
+}
+
+.storage-item-icon {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+}
+
+.storage-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-item-empty {
+    width: 100px;
+    height: 0;
+}
+
+.context-menu-container {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 100px;
+    height: 200px;
+
+    background-color: gray;
+}
+

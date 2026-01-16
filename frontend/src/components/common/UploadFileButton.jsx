@@ -1,5 +1,9 @@
 import {useRef} from "react";
-import getCookie from "../utils/getCookie.js";
+import getCookie from "../../utils/getCookie.js";
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 
 export const UploadFileButton = () => {
   const fileInputRef = useRef(null);
@@ -16,7 +20,7 @@ export const UploadFileButton = () => {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://localhost:8000/api/storage/files/upload/", {
+      const res = await fetch(`${API_BASE_URL}/storage/files/upload/`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -36,7 +40,7 @@ export const UploadFileButton = () => {
 
   return (
     <>
-      <button onClick={handleButtonClick}>Загрузить файл</button>
+      <button className="upload-file-btn btn" onClick={handleButtonClick}>Загрузить файл</button>
 
       <input
         type="file"

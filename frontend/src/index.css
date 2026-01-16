@@ -9,4 +9,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+    margin: 0;
+    background-color: rgb(248, 250, 253);
+}
 
