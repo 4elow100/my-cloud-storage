@@ -9,19 +9,180 @@
     text-align: center;
 }
 
-
-
-.btn {
-
-}
-
 .btn:hover {
     cursor: pointer;
 }
 
-/*
-  TEST CSS
-*/
+.main-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    min-width: 300px;
+}
+
+.modal-close-btn {
+    box-sizing: border-box;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 30px;
+    width: 30px;
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal p {
+    margin: 0;
+}
+
+.modal form button {
+    align-self: center;
+    height: 100%;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    margin-top: 0.5rem;
+}
+
+.context-menu-container {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 100px;
+    height: 200px;
+
+    background-color: gray;
+}
+
+
+/*========================================================
+    HOME PAGE STYLES
+ ========================================================*/
+
+.app-information-block {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 960px;
+    padding: 20px 30px;
+
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+
+.app-information-block ul {
+    margin: 0;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+.registration-requirements {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.requirements-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+}
+
+.requirement-block {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+
+.requirement-block ul {
+    margin: 0;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+.app-additional-info {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 960px;
+    padding: 20px 30px;
+}
+
+.app-additional-info p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.user-buttons-area {
+    display: flex;
+    gap: 10px;
+}
+
+.user-buttons-area button {
+    height: 100%;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/*========================================================
+    MAIN HEADER STYLES
+ ========================================================*/
 
 .header-container {
     display: flex;
@@ -49,58 +210,6 @@
     width: 30px;
     height: 30px;
 
-}
-
-.add-file-btn {
-    border: 1px solid green;
-}
-
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    min-width: 300px;
-}
-
-.error {
-    color: red;
-    margin-top: 0.5rem;
-}
-
-.icon-test {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-    border: 1px solid firebrick;
-    text-align: center;
-    vertical-align: center;
-}
-
-
-/*
-  =================================================================================
-*/
-
-.main-container {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
 }
 
 .header-search-area, .header-user-area {
@@ -162,8 +271,47 @@
     background-color: #ccc;
 }
 
+.user-profile-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 20px;
+    gap: 20px;
+}
+
+.user-profile-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.user-profile-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.user-profile-btn {
+    height: 100%;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/*========================================================
+    STORAGE PAGE STYLES
+ ========================================================*/
+
 .upload-file-btn {
-    height: calc(100% - 20px);
+    height: 100%;
     padding: 0 10px;
 
     background-color: transparent;
@@ -175,16 +323,24 @@
 .storage-container {
     position: relative;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     width: 100%;
     padding: 20px 50px;
 
 }
 
 .storage-header {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
+    padding: 20px 30px;
+
+    background-color: #f1f1f1;
+    border-radius: 20px;
 
 }
 
@@ -195,50 +351,50 @@
 }
 
 .storage-list-row {
-    display: flex;
-    flex-grow: 1;
-    gap: 20px;
-}
-
-.user-profile-container {
+    position: relative;
     display: flex;
     align-items: center;
-    padding-right: 10px;
+    gap: 10px;
 }
 
-.user-profile-icon {
-    width: 25px;
-    height: 25px;
+.storage-list-row:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.storage-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .table-header {
+    box-sizing: border-box;
     display: flex;
+    flex-grow: 1;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+
+    background-color: #f7f7f7;
+    border-radius: 20px;
 }
 
 .table-content {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 160px);
+    gap: 10px;
+    max-height: calc(100vh - 320px);
+    padding: 10px 20px;
 
     overflow: scroll;
-}
-
-.storage-row-name, .table-header-name {
-    flex-basis: 0;
-    flex-grow: 1;
-}
-
-.storage-row-size, .table-header-size {
-    flex-basis: 70px;
-}
-
-.storage-row-uploaded, .storage-row-downloaded,
-.table-header-uploaded, .storage-row-downloaded {
-    flex-basis: 50px;
-}
-
-.storage-row-comment, .storage-row-comment {
-    flex-basis: 100px;
 }
 
 .grid-content {
@@ -248,15 +404,21 @@
     gap: 20px;
 
     width: 100%;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 320px);
 
     overflow: scroll;
 }
 
-.storage-item-icon {
+.storage-list-row .storage-item-icon {
     box-sizing: border-box;
-    width: 100px;
-    height: 100px;
+    width: 35px;
+    height: 35px;
+}
+
+.storage-item .storage-item-icon {
+    box-sizing: border-box;
+    width: 70px;
+    height: 70px;
 }
 
 .storage-item {
@@ -266,18 +428,93 @@
     align-items: center;
 }
 
-.grid-item-empty {
-    width: 100px;
-    height: 0;
+.create-item-btn {
+    height: 100%;
+    padding: 0 10px;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    outline: none;
 }
 
-.context-menu-container {
-    position: absolute;
-    top: 100px;
-    left: 100px;
-    width: 100px;
-    height: 200px;
-
-    background-color: gray;
+.storage-row-actions {
+    display: flex;
+    gap: 20px;
 }
+
+.storage-row-delete, .storage-row-details {
+    width: 20px;
+}
+
+.storage-row-comment {
+    text-overflow: ellipsis;
+}
+
+.storage-row-name {
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+/*========================================================
+    COLUMNS STYLE
+ ========================================================*/
+
+.col1 {
+    width: 35px;
+}
+
+.col2 {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.col3 {
+    flex-basis: 100px;
+}
+
+.col4, .col5 {
+    flex-basis: 100px;
+}
+
+.col6 {
+    flex-basis: 150px;
+}
+
+.col7 {
+    flex-basis: 60px;
+}
+
+
+/*========================================================
+    LOGIN MODAL STYLES
+ ========================================================*/
+
+
+
+
+
+
+
+/*========================================================
+    REGISTRATION MODAL STYLES
+ ========================================================*/
+
+
+
+
+/*========================================================
+    CREATE FOLDER MODAL STYLES
+ ========================================================*/
+
+
+
+/*========================================================
+    UPLOAD FILE MODAL STYLES
+ ========================================================*/
+
+
+
+
 

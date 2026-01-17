@@ -37,7 +37,6 @@ export const MainHeader = () => {
                 <SearchField/>
             </div>
             <div className="header-user-area">
-                {user && <UploadFileButton/>}
                 <UserProfileButton iconOnClick={userIconClick} btnOnClick={userBtnClick} btnTitle={user ? 'Выход' : 'Вход'}/>
             </div>
 

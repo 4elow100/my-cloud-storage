@@ -15,7 +15,7 @@ function App() {
       <main className="main-container">
         <Routes>
           <Route path="/" element={<HomePage/>}/>
-          <Route path="/storage" element={
+          <Route path="/storage/*" element={
             <RequireAuth>
               <StoragePage/>
             </RequireAuth>

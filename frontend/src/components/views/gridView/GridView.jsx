@@ -1,18 +1,18 @@
-import {StorageItem} from "./StorageItem.jsx";
+import {FolderStorageItem} from "./FolderStorageItem.jsx";
+import {FileStorageItem} from "./FileStorageItem.jsx";
 
-export const GridView = ({data, onContextMenu}) => {
-    return (
-        <>
-            <div className="grid-content">
-                {data.map(item => (
-                    <StorageItem key={item.id} item={item} onContextMenu={onContextMenu} isFolder={item.isFolder}/>
-                ))}
-                {Array(15).fill().map(() => (
-                    <>
-                        <div className="grid-item-empty"></div>
-                    </>
-                ))}
-            </div>
-        </>
-    )
+export const GridView = ({data, onContextMenu, onOpenFolder, onDelete}) => {
+  return (
+    <>
+      <div className="grid-content">
+        {data['folders'].map(item => (
+          <FolderStorageItem key={item.id} item={item} onContextMenu={onContextMenu} onDoubleClick={onOpenFolder}/>
+        ))}
+        {data['files'].map(item => (
+          <FileStorageItem key={item.id} item={item} onContextMenu={onContextMenu} onDelete={onDelete}/>
+        ))}
+
+      </div>
+    </>
+  )
 }

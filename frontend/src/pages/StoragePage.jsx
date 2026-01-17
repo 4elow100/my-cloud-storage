@@ -1,223 +1,58 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ListView} from "../components/views/listView/ListView.jsx";
 import {GridView} from "../components/views/gridView/GridView.jsx";
 import {FileContextMenu} from "../components/contextMenus/FileContextMenu.jsx";
 import {FolderContextMenu} from "../components/contextMenus/FolderContextMenu.jsx";
 import {CreateItemButton} from "../components/common/CreateItemButton.jsx";
+import {CreateFolderModal} from "../components/modals/CreateFolderModal.jsx";
+import getCookie from "../utils/getCookie.js";
+import {useLocation, useNavigate} from "react-router-dom";
+import {UploadFileButton} from "../components/common/UploadFileButton.jsx";
+import {UploadFileModal} from "../components/modals/UploadFileModal.jsx";
 
 
-const testData = [
-  {
-    id: 1,
-    name: "Name1",
-    size: "155KB",
-    uploaded_at: "01.01.01 11:55",
-    last_download: "01.01.01 11:55",
-    comment: "FILE1",
-    isFolder: true
-  },
-  {
-    id: 2,
-    name: "Name2",
-    size: "222KB",
-    uploaded_at: "02.02.02 12:55",
-    last_download: "02.02.02 12:55",
-    comment: "FILE2",
-    isFolder: true
-  },
-  {
-    id: 3,
-    name: "Name3",
-    size: "333KB",
-    uploaded_at: "03.03.03 13:55",
-    last_download: "03.03.03 13:55",
-    comment: "FILE3",
-    isFolder: true
-  },
-  {
-    id: 4,
-    name: "Name4",
-    size: "44KB",
-    uploaded_at: "04.04.04 14:55",
-    last_download: "04.04.04 14:55",
-    comment: "FILE4",
-    isFolder: true
-  },
-  {
-    id: 5,
-    name: "Name5",
-    size: "555KB",
-    uploaded_at: "05.05.05 15:55",
-    last_download: "05.05.05 15:55",
-    comment: "FILE5",
-    isFolder: true
-  },
-  {
-    id: 6,
-    name: "Name6",
-    size: "6KB",
-    uploaded_at: "06.06.06 16:55",
-    last_download: "06.06.06 16:55",
-    comment: "FILE6",
-    isFolder: true
-  },
-  {
-    id: 7,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 8,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 9,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 10,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 11,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 12,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 13,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 14,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 15,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 16,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 17,
-    name: "Name7",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: true
-  },
-  {
-    id: 18,
-    name: "Name7.txt",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: false
-  },
-  {
-    id: 19,
-    name: "Name7.pdf",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: false
-  },
-  {
-    id: 20,
-    name: "Name7.gif",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: false
-  },
-  {
-    id: 21,
-    name: "Name7.mp4",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: false
-  },
-  {
-    id: 22,
-    name: "Name7.mp3",
-    size: "7777KB",
-    uploaded_at: "07.07.07 17:55",
-    last_download: "07.07.07 17:55",
-    comment: "FILE7",
-    isFolder: false
-  },
-]
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const StoragePage = () => {
-  const [currentView, setView] = useState('list')
-  const [contextMenuVisibility, setContextMenuVisibility] = useState(false)
-  const [contextMenuType, setContextMenuType] = useState(null)
-  const [contextMenuPosition, setContextMenuPosition] = useState({left: 0, top: 0})
+  const navigate = useNavigate()
+  const [currentView, setView] = useState('list');
+  const [contextMenuType, setContextMenuType] = useState(null);
+  const [contextMenuPosition, setContextMenuPosition] = useState({left: 0, top: 0});
+  const [modalType, setModalType] = useState(null);
+  const [storageData, setStorageData] = useState({folders: [], files: []});
+  const [currentFolderId, setCurrentFolderId] = useState(null)
+  const [folderPath, setFolderPath] = useState([])
+  const [updateFlag, setUpdateFlag] = useState(false)
+
+  const location = useLocation();
+
+
+  useEffect(() => {
+    const pathSegments = location.pathname.replace('/storage', '').split('/').filter(Boolean)
+
+    let url = `${API_BASE_URL}/storage/folders/`
+    if (pathSegments.length > 0) url += `${pathSegments.join('/')}/`
+
+    fetch(url, {
+      headers: {"X-CSRFToken": getCookie('csrftoken')},
+      credentials: "include"
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error === 'FOLDER_NOT_FOUND') {
+          navigate(`/storage/${data.closest_existing_path}`)
+        } else {
+          setStorageData(data)
+          setCurrentFolderId(data.current_folder_id)
+          setFolderPath(pathSegments)
+        }
+      })
+  }, [location.pathname, updateFlag]);
 
   const onContextMenu = (e) => {
     e.preventDefault()
 
-    if (contextMenuVisibility) setContextMenuVisibility(false)
+    if (contextMenuType) setContextMenuType(null)
 
     setContextMenuPosition({
       left: e.clientX,
@@ -226,18 +61,116 @@ export const StoragePage = () => {
 
     if (e.target.closest(".item-type-file")) {
       setContextMenuType('file')
+      return
     }
 
     if (e.target.closest(".item-type-folder")) {
       setContextMenuType('folder')
     }
-
-    setContextMenuVisibility(true)
   }
 
   const handleClick = (e) => {
+    if (e.target.closest('.storage-row-details')) return
+
     if (!e.target.closest(".context-menu-container")) {
-      setContextMenuVisibility(false)
+      setContextMenuType(null)
+    }
+  }
+
+  const createFolder = async (name) => {
+    try {
+      await fetch(`${API_BASE_URL}/storage/folders/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCookie('csrftoken')
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name: name,
+          parent: currentFolderId
+        })
+      })
+        .then((res) => {
+          if (!res.ok) {
+            res.json().then(data => {
+              const message = data["name"] ? data["name"][0] : 'Ошибка при создании папки'
+              alert(message)
+            })
+          }
+          setModalType(null)
+          setUpdateFlag(prev => !prev)
+        })
+    } catch {
+      console.log("error")
+    }
+  }
+
+  const onOpenFolder = (folder_name) => {
+    const newPathSegments = [...folderPath, folder_name]
+    navigate(`/storage/${newPathSegments.map(encodeURIComponent).join('/')}`)
+  }
+
+  const onDeleteItem = async (e) => {
+    e.preventDefault()
+
+    const rowElem = e.target.closest('.item-type-file')
+
+    try {
+      await fetch(`${API_BASE_URL}/storage/files/${rowElem.getAttribute('data-id')}`, {
+        method: "DELETE",
+        headers: {
+          "X-CSRFToken": getCookie('csrftoken')
+        },
+        credentials: "include"
+      })
+        .then((res) => {
+          if (!res.ok) {
+            res.json().then(data => {
+              const message = data["name"] ? data["name"][0] : 'Ошибка при удалении файла'
+              alert(message)
+            })
+          }
+          setUpdateFlag(prev => !prev)
+        })
+    } catch {
+      console.log("error")
+    }
+  }
+
+  const onUploadFile = async (file, comment) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("comment", comment)
+    if (currentFolderId) formData.append("folder_id", currentFolderId)
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/storage/files/`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const message = data.non_field_errors && data.non_field_errors.length > 0
+          ? data.non_field_errors[0]
+          : "Ошибка при загрузке файла";
+
+        alert(message);
+        throw new Error(message);
+      }
+
+      setUpdateFlag(prev => !prev)
+      setModalType(null)
+
+      alert("Файл загружен");
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -247,7 +180,8 @@ export const StoragePage = () => {
         <header className="storage-header">
           <span className="storage-header-title">Файлы</span>
           <div className="storage-header-actions">
-            <CreateItemButton />
+            <UploadFileButton onClick={() => setModalType('uploadFile')}/>
+            <CreateItemButton onClick={() => setModalType('createFolder')}/>
             <select className="view-select" name="select storage view"
                     onChange={e => setView(e.target.value)}>
               <option className="view-option" value="list">List</option>
@@ -256,12 +190,18 @@ export const StoragePage = () => {
           </div>
         </header>
         <div className="storage-content">
-          {currentView === 'list' && <ListView data={testData}/>}
-          {currentView === 'grid' && <GridView data={testData} onContextMenu={onContextMenu}/>}
+          {currentView === 'list' &&
+            <ListView onOpenFolder={onOpenFolder} data={storageData} onContextMenu={onContextMenu}
+                      onDelete={onDeleteItem}/>}
+          {currentView === 'grid' &&
+            <GridView onOpenFolder={onOpenFolder} data={storageData} onContextMenu={onContextMenu}
+                      onDelete={onDeleteItem}/>}
         </div>
-        {contextMenuVisibility && contextMenuType === 'file' && (<FileContextMenu style={contextMenuPosition}/>)}
-        {contextMenuVisibility && contextMenuType === 'folder' && (<FolderContextMenu style={contextMenuPosition}/>)}
+        {contextMenuType === 'file' && (<FileContextMenu style={contextMenuPosition}/>)}
+        {contextMenuType === 'folder' && (<FolderContextMenu style={contextMenuPosition}/>)}
       </div>
+      {modalType === 'createFolder' && <CreateFolderModal onSubmit={createFolder} onClose={() => setModalType(null)}/>}
+      {modalType === 'uploadFile' && <UploadFileModal onSubmit={onUploadFile} onClose={() => setModalType(null)}/>}
     </>
   )
 }

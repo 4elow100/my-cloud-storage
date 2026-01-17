@@ -1,9 +1,12 @@
-from django.urls import path, include
-from .views import FoldersAPIView, GetFolderAPIView, UploadFileAPIView
+from django.urls import path, re_path, include
+from rest_framework.routers import DefaultRouter
+
+from .views import FoldersAPIView, FileViewSet
+
+router = DefaultRouter()
+router.register(r'files', FileViewSet, basename='files')
 
 urlpatterns = [
-    path('folders/', FoldersAPIView.as_view(), name='folders'),
-    path('folders/<int:pk>/', GetFolderAPIView.as_view(), name='folders-by-id'),
-    # path('files/', ),
-    path('files/upload/', UploadFileAPIView.as_view(), name='file-upload'),
+    re_path(r'^folders(?:/(?P<path>.*))?/$', FoldersAPIView.as_view(), name='folders'),
+    path('', include(router.urls)),
 ]

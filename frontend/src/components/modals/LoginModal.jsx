@@ -1,6 +1,7 @@
 import {useState} from "react"
 import {useAuth} from "../../hooks/useAuth.js"
 import {useNavigate} from "react-router-dom"
+import {Modal} from "../common/Modal.jsx";
 
 export default function LoginModal({onClose}) {
   const {login} = useAuth()
@@ -12,7 +13,7 @@ export default function LoginModal({onClose}) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await login("RegUser3", "pass112342223")
+      await login(username, password)
         .then(() => {
           onClose()
           navigate("/storage")
@@ -23,27 +24,24 @@ export default function LoginModal({onClose}) {
   }
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h2>Вход</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Логин"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Пароль"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <button type="submit">Войти</button>
-        </form>
+    <Modal onClose={onClose}>
+      <h2>Вход</h2>
+      <form onSubmit={handleSubmit}>
         {error && <p className="error">{error}</p>}
-        <button onClick={onClose}>Закрыть</button>
-      </div>
-    </div>
+        <input
+          type="text"
+          placeholder="Логин"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <button type="submit">Войти</button>
+      </form>
+    </Modal>
   )
 }
