@@ -2,6 +2,7 @@
 
 ## Содержание
 
+- [v0.3.0](#v030)
 - [v0.2.0](#v020)
 - [v0.1.0](#v010)
 - [v0.0.1 - Initial version](#v001)
@@ -10,7 +11,50 @@
 
 ## Список версий:
 
-<details id="v020" open>
+<details id="v030" open>
+<summary><strong><em>v0.3.0</em></strong></summary>
+
+<p>Доработка интерфейса и API, переработка иерархии компонентов и провайдеров</p>
+<p>Подробнее:</p>
+
+- <details>
+  <summary><em>Backend</em></summary>
+
+    - Произведена настройка сервера для выдачи статических файлов фронтенда
+    - GET-запрос файла теперь выдает поле `public_token` помимо всех остальных
+    - Добавлен обработчик запросов `public_file_download`
+    - Добавлена возможность получить `public_token` файла по GET-запросу
+
+  </details>
+
+- <details>
+  <summary><em>Frontend</em></summary>
+
+    - Немного доработаны стили
+    - Реализованы:
+      - UI-компоненты:
+        - `ContextMenusList`, `MessageAlert`, `ModalsList`, `ViewSelector`, `ItemDetailsModal`, `RenameItemModal`
+      - Логика:
+        - Контексты `AlertContext`, `ContextMenuContext`, `ModalContext`, `StorageContext`
+        - Провайдеры `AlertProvider`, `ContextMenuProvider`, `ModalProvider`, `StorageProvider`
+        - Хуки `useAlert`, `useContextMenu`, `useModal`, `useStorage`
+    - Компоненты модальных окон и контекстного меню вынесены в отдельные компоненты со списками
+    - Селектор вида отображения элементов хранилища вынесен в отдельный компонент
+    - Реализованы контекстные окна
+    - Добавлена возможность при работе с файлами:
+      - Копировать публичную ссылку на скачивание файла
+      - Переименовывать файл
+      - Открыть окно свойств файла
+      - Скачать файл
+      - При попытке удаления файла открывается окно подтверждения
+
+  </details>
+
+</details>
+
+---
+
+<details id="v020">
 <summary><strong><em>v0.2.0</em></strong></summary>
 
 <p>Доработка интерфейса и API</p>

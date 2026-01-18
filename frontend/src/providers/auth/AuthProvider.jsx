@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {AuthContext} from "./AuthContext.js";
-import getCookie from "../utils/getCookie.js";
+import getCookie from "../../utils/getCookie.js";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
@@ -9,7 +9,7 @@ export function AuthProvider({children}) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/user/me`, {credentials: "include"})
+    fetch(`${API_BASE_URL}/user/me/`, {credentials: "include"})
       .then(res => res.ok ? res.json() : null)
       .then(data => setUser(data))
       .finally(() => setLoading(false))
@@ -22,7 +22,11 @@ export function AuthProvider({children}) {
       credentials: "include",
       body: JSON.stringify(data)
     })
-    if (!res.ok) throw new Error("Ошибка регистрации")
+    if (!res.ok) {
+      const data = await res.json()
+      const message = data.username ? data.username : "Ошибка регистрации"
+      throw new Error(message)
+    }
 
     await login(data['username'], data['password'])
   }
@@ -36,7 +40,7 @@ export function AuthProvider({children}) {
     })
     if (!res.ok) throw new Error("Ошибка входа")
 
-    const me = await fetch(`${API_BASE_URL}/user/me`, {credentials: "include"}).then(r => r.json())
+    const me = await fetch(`${API_BASE_URL}/user/me/`, {credentials: "include"}).then(r => r.json())
     setUser(me)
   }
 

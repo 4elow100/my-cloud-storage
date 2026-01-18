@@ -1,7 +1,10 @@
 import {FolderRow} from "./FolderRow.jsx";
 import {FileRow} from "./FileRow.jsx";
+import {useStorage} from "../../../providers/storage/useStorage.js";
 
-export const ListView = ({data, onContextMenu, onDelete, onOpenFolder}) => {
+export const ListView = ({onOpenFolder}) => {
+  const {storageData} = useStorage()
+
   return (
     <>
       <header className="table-header">
@@ -13,12 +16,12 @@ export const ListView = ({data, onContextMenu, onDelete, onOpenFolder}) => {
         <div className="table-header-comment col6">Комментарий</div>
         <span className="col7"></span>
       </header>
-      <div className="table-content">
-        {data['folders'].map(item => (
-          <FolderRow key={item.id} item={item} onContextMenu={onContextMenu} onDelete={onDelete} onDetails={onContextMenu} onDoubleClick={onOpenFolder}/>
+      <div className="table-content custom-context-menu">
+        {storageData['folders'].map(item => (
+          <FolderRow key={item.id} item={item} onDoubleClick={onOpenFolder}/>
         ))}
-        {data['files'].map(item => (
-          <FileRow key={item.id} item={item} onContextMenu={onContextMenu} onDelete={onDelete} onDetails={onContextMenu}/>
+        {storageData['files'].map(item => (
+          <FileRow key={item.id} item={item} />
         ))}
       </div>
     </>

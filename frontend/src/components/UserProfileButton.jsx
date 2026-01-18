@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleUser as noUserIcon} from "@fortawesome/free-regular-svg-icons";
 import {faCircleUser as userIcon} from "@fortawesome/free-solid-svg-icons";
-import {useAuth} from "../hooks/useAuth.js";
+import {useAuth} from "../providers/auth/useAuth.js";
 
 export const UserProfileButton = ({iconOnClick, btnOnClick, btnTitle}) => {
   const {user} = useAuth()

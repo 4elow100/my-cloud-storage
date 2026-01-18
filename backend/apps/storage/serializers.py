@@ -45,8 +45,8 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = File
-        fields = ["id", "original_name", "file", "folder", "owner", "size", "size_formatted", "uploaded_at", "last_download_at", "comment"]
-        read_only_fields = ["id", "original_name", "size", "size_formatted", "uploaded_at", "last_download_at", "comment"]
+        fields = ["id", "original_name", "file", "folder", "owner", "size", "size_formatted", "uploaded_at", "last_download_at", "comment", "public_token"]
+        read_only_fields = ["id", "original_name", "size", "size_formatted", "uploaded_at", "last_download_at", "comment", "public_token"]
 
     def get_size_formatted(self, obj):
         size = obj.size

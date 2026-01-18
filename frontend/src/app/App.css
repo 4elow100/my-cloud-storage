@@ -86,12 +86,61 @@
 
 .context-menu-container {
     position: absolute;
-    top: 100px;
-    left: 100px;
-    width: 100px;
-    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+    padding: 5px;
 
-    background-color: gray;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+.context-menu-part {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+}
+
+.context-menu-part:after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 6px;
+    right: 6px;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.context-menu-option {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    padding: 0 10px;
+
+    border-radius: 10px;
+    user-select: none;
+}
+
+.context-menu-option:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.message-alert-container {
+    box-sizing: border-box;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    padding: 10px 20px;
+
+    border-radius: 20px;
+    background-color: white;
 }
 
 
@@ -355,14 +404,29 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 0 20px;
+
+    border-radius: 10px;
+}
+
+.storage-list-row:hover {
+    background-color: #f1f1f1;
+}
+
+.storage-list-row div {
+    user-select: none;
+}
+
+.storage-content .selected {
+    background-color: #f1f1f1;
 }
 
 .storage-list-row:after {
     content: "";
     position: absolute;
     bottom: -5px;
-    right: 0;
-    left: 0;
+    right: 10px;
+    left: 10px;
     height: 1px;
     background-color: #ccc;
 }
@@ -392,7 +456,7 @@
     flex-direction: column;
     gap: 10px;
     max-height: calc(100vh - 320px);
-    padding: 10px 20px;
+    padding: 10px 0;
 
     overflow: scroll;
 }

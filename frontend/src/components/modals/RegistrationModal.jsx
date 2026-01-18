@@ -1,12 +1,15 @@
-import {useEffect, useState} from "react"
-import {useAuth} from "../../hooks/useAuth.js"
+import {useState} from "react"
+import {useAuth} from "../../providers/auth/useAuth.js"
 import {useNavigate} from "react-router-dom"
 import {Modal} from "../common/Modal.jsx";
 import {validateEmail, validatePassword, validateUsername} from "../../utils/validate.js";
+import {useModal} from "../../providers/modals/useModal.js";
 
 
-export default function RegistrationModal({onClose}) {
+export default function RegistrationModal() {
   const {registration} = useAuth()
+  const {openModal} = useModal()
+
   const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -54,11 +57,12 @@ export default function RegistrationModal({onClose}) {
           "password": password,
           "email": email
         }).then(() => {
-        onClose()
-        navigate("/storage")
-      })
-    } catch {
-      setError("Неверный логин или пароль")
+          openModal(null)
+          navigate("/storage")
+        })
+    } catch (err) {
+      console.log(err)
+      setError(err.message)
     }
   }
 
@@ -68,7 +72,7 @@ export default function RegistrationModal({onClose}) {
   }
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={() => openModal(null)}>
       <h2>Регистрация</h2>
       <form onSubmit={handleSubmit}>
         {error && <p className="error">{error}</p>}

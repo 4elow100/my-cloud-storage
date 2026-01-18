@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+
+from django.conf.global_settings import STATICFILES_STORAGE
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -20,6 +22,19 @@ load_dotenv(BASE_DIR / ".env")
 
 MEDIA_ROOT = BASE_DIR.parent / 'MyCloudStorage'
 MEDIA_URL = '/media/'
+
+STATIC_URL = '/assets/'
+STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
+
+VITE_BUILD_DIR = BASE_DIR.parent / 'frontend' / 'dist'
+VITE_BUILD_STATIC_ROOT = VITE_BUILD_DIR / 'assets'
+
+STATICFILES_DIRS = [
+    VITE_BUILD_STATIC_ROOT,
+]
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -46,6 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,10 +80,11 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = 'backend.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [VITE_BUILD_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +145,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

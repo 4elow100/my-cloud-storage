@@ -1,9 +1,13 @@
 import {Modal} from "../common/Modal.jsx";
 import {useState} from "react";
+import {useStorage} from "../../providers/storage/useStorage.js";
+import {useModal} from "../../providers/modals/useModal.js";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-export const CreateFolderModal = ({onClose, onSubmit}) => {
+export const CreateFolderModal = () => {
+  const {createFolder} = useStorage()
+  const {openModal} = useModal()
+
   const [newFolderName, setNewFolderName] = useState('')
   const [error, setError] = useState("")
 
@@ -12,13 +16,17 @@ export const CreateFolderModal = ({onClose, onSubmit}) => {
 
     if (!newFolderName.trim()) return
 
-    onSubmit(newFolderName)
-      .catch(err => setError(err))
+    try {
+      createFolder(newFolderName)
+    } catch (err) {
+      console.log(err)
+      setError(err)
+    }
   }
 
   return (
     <>
-      <Modal onClose={onClose}>
+      <Modal onClose={() => openModal(null)}>
         <h2>Создание папки</h2>
         <form onSubmit={handleSubmit}>
           {error && <p className="error">{error}</p>}

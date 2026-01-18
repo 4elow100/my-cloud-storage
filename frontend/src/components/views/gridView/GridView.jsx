@@ -1,15 +1,18 @@
 import {FolderStorageItem} from "./FolderStorageItem.jsx";
 import {FileStorageItem} from "./FileStorageItem.jsx";
+import {useStorage} from "../../../providers/storage/useStorage.js";
 
-export const GridView = ({data, onContextMenu, onOpenFolder, onDelete}) => {
+export const GridView = ({onOpenFolder}) => {
+  const {storageData} = useStorage()
+
   return (
     <>
-      <div className="grid-content">
-        {data['folders'].map(item => (
-          <FolderStorageItem key={item.id} item={item} onContextMenu={onContextMenu} onDoubleClick={onOpenFolder}/>
+      <div className="grid-content custom-context-menu">
+        {storageData['folders'].map(item => (
+          <FolderStorageItem key={item.id} item={item} onDoubleClick={onOpenFolder}/>
         ))}
-        {data['files'].map(item => (
-          <FileStorageItem key={item.id} item={item} onContextMenu={onContextMenu} onDelete={onDelete}/>
+        {storageData['files'].map(item => (
+          <FileStorageItem key={item.id} item={item} />
         ))}
 
       </div>

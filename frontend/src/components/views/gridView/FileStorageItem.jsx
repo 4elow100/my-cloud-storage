@@ -1,19 +1,27 @@
 import {StorageItem} from "./StorageItem.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getFileIcon} from "../../../utils/getFileIcon.js";
+import {useContextMenu} from "../../../providers/contextMenu/useContextMenu.js";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-export const FileStorageItem = ({item, onContextMenu, onDelete}) => {
+export const FileStorageItem = ({item}) => {
   const itemIcon = getFileIcon(item.original_name)
+  const {openContextMenu} = useContextMenu()
 
   const handleDoubleClick = () => {
-    window.open(`${API_BASE_URL}/storage/files/${item.id}/view`, '_blank', 'noopener,noreferrer');
+    window.open(`${API_BASE_URL}/storage/files/${item.id}/view/`, '_blank', 'noopener,noreferrer');
+  }
+
+  const handleContextMenu = (e) => {
+    const rowElem = e.target.closest(".item-type-file")
+    rowElem.classList.add("selected")
+    openContextMenu(e, item.id, 'file', rowElem, item.original_name, 'files')
   }
 
   return (
     <>
-      <StorageItem onContextMenu={onContextMenu} elemTypeClass='item-type-file' onDoubleClick={handleDoubleClick} item_id={item.id}>
+      <StorageItem onContextMenu={handleContextMenu} elemTypeClass='item-type-file' onDoubleClick={handleDoubleClick} item_id={item.id}>
           <FontAwesomeIcon icon={itemIcon} className="storage-item-icon"/>
           <span className="storage-item-title">{item.original_name}</span>
       </StorageItem>

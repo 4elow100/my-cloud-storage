@@ -1,10 +1,14 @@
 import {useState} from "react"
-import {useAuth} from "../../hooks/useAuth.js"
+import {useAuth} from "../../providers/auth/useAuth.js"
 import {useNavigate} from "react-router-dom"
 import {Modal} from "../common/Modal.jsx";
+import {useModal} from "../../providers/modals/useModal.js";
 
-export default function LoginModal({onClose}) {
+
+export default function LoginModal() {
   const {login} = useAuth()
+  const {openModal} = useModal()
+
   const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -12,19 +16,19 @@ export default function LoginModal({onClose}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     try {
       await login(username, password)
-        .then(() => {
-          onClose()
-          navigate("/storage")
-        })
-    } catch {
+      openModal(null)
+      navigate("/storage")
+    } catch (err) {
+      console.log(err)
       setError("Неверный логин или пароль")
     }
   }
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={() => openModal(null)}>
       <h2>Вход</h2>
       <form onSubmit={handleSubmit}>
         {error && <p className="error">{error}</p>}

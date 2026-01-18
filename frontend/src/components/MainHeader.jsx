@@ -1,32 +1,29 @@
-import {useAuth} from "../hooks/useAuth.js";
+import {useAuth} from "../providers/auth/useAuth.js";
 import {Logo} from "./Logo.jsx";
 import {useNavigate} from "react-router-dom";
-import {UploadFileButton} from "./common/UploadFileButton.jsx";
 import {SearchField} from "./SearchField.jsx";
 import {UserProfileButton} from "./UserProfileButton.jsx";
-import {useState} from "react";
-import RegistrationModal from "./modals/RegistrationModal.jsx";
-import LoginModal from "./modals/LoginModal.jsx";
+import {useModal} from "../providers/modals/useModal.js";
 
 
 export const MainHeader = () => {
     const {user, logout} = useAuth()
     const navigate = useNavigate()
-    const [modalType, setModalType] = useState(null)
+    const {openModal} = useModal()
 
     const returnToHome = () => {
         navigate("/")
     }
 
     const userIconClick = () => {
-      user ? navigate("/storage") : setModalType('login')
+      user ? navigate("/storage") : openModal('login')
     }
 
     const userBtnClick = () => {
         if (user) {
             logout()
         } else {
-            setModalType('login')
+            openModal('login')
         }
     }
 
@@ -39,9 +36,6 @@ export const MainHeader = () => {
             <div className="header-user-area">
                 <UserProfileButton iconOnClick={userIconClick} btnOnClick={userBtnClick} btnTitle={user ? 'Выход' : 'Вход'}/>
             </div>
-
-          {modalType === 'registration' && <RegistrationModal onClose={() => setModalType(null)}/>}
-          {modalType === 'login' && <LoginModal onClose={() => setModalType(null)}/>}
         </>
     )
 }

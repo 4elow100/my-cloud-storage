@@ -1,7 +1,13 @@
 import { Modal } from "../common/Modal.jsx";
 import { useRef, useState } from "react";
+import {useStorage} from "../../providers/storage/useStorage.js";
+import {useModal} from "../../providers/modals/useModal.js";
 
-export const UploadFileModal = ({ onSubmit, onClose }) => {
+
+export const UploadFileModal = () => {
+  const {uploadFile} = useStorage()
+  const {openModal} = useModal()
+
   const [comment, setComment] = useState('');
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -10,7 +16,7 @@ export const UploadFileModal = ({ onSubmit, onClose }) => {
     e.preventDefault();
     if (!file) return;
 
-    await onSubmit(file, comment);
+    await uploadFile(file, comment);
 
     setFile(null);
     setComment('');
@@ -26,7 +32,7 @@ export const UploadFileModal = ({ onSubmit, onClose }) => {
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={() => openModal(null)}>
       <h2>Загрузка файла</h2>
 
       <form className="upload-file-form" onSubmit={handleSubmit}>

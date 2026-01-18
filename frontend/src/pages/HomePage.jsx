@@ -1,12 +1,10 @@
-import {useAuth} from "../hooks/useAuth.js";
-import {useState} from "react";
-import RegistrationModal from "../components/modals/RegistrationModal.jsx";
-import LoginModal from "../components/modals/LoginModal.jsx";
+import {useAuth} from "../providers/auth/useAuth.js";
+import {useModal} from "../providers/modals/useModal.js";
 
 
 export const HomePage = () => {
-  const {user, logout} = useAuth()
-  const [modalType, setModalType] = useState(null)
+  const {user} = useAuth()
+  const {openModal} = useModal()
 
   return (
     <>
@@ -66,15 +64,11 @@ export const HomePage = () => {
       <div className="user-buttons-area">
         {!user &&
           <>
-            <button onClick={() => setModalType('login')}>Войти</button>
-            <button onClick={() => setModalType('registration')}>Зарегистрироваться</button>
+            <button onClick={() => openModal('login')}>Войти</button>
+            <button onClick={() => openModal('registration')}>Зарегистрироваться</button>
           </>
         }
       </div>
-
-      {modalType === 'registration' && <RegistrationModal onClose={() => setModalType(null)}/>}
-      {modalType === 'login' && <LoginModal onClose={() => setModalType(null)}/>}
-
     </>
   )
 }

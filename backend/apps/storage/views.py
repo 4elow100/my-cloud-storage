@@ -6,13 +6,22 @@ from django.template.context_processors import request
 from django.template.defaulttags import comment
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Folder, File
 from .serializers import CreateFolderSerializer, FolderSerializer, FileSerializer
+
+
+def public_file_download(request, public_token):
+    file_instance = get_object_or_404(File, public_token=public_token)
+    file = file_instance.file
+
+    response = FileResponse(file.open('rb'))
+    response['Content-Disposition'] = f'inline; filename="{file_instance.original_name}"'
+    return response
 
 
 class FoldersAPIView(APIView):
@@ -68,7 +77,7 @@ class FileViewSet(viewsets.ModelViewSet):
     queryset = File.objects.all()
     serializer_class = FileSerializer
     permission_classes = [IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_queryset(self):
         return self.queryset.filter(owner=self.request.user)
@@ -103,14 +112,19 @@ class FileViewSet(viewsets.ModelViewSet):
         return Response({"message": "Файл переименован", "name": file_instance.original_name})
 
     @action(detail=True, methods=['get'])
+    def get_token(self, request, pk=None):
+        file_instance = self.get_object()
+        return Response({"token": file_instance.public_token})
+
+    @action(detail=True, methods=["get"])
     def download(self, request, pk=None):
         file_instance = self.get_object()
-        file = file_instance.file
-
-        response = FileResponse(file.open('rb'), content_type='application/octet-stream')
-        response['Content-Disposition'] = (
+        file_handle = file_instance.file.open("rb")
+        mime_type, _ = mimetypes.guess_type(file_instance.original_name)
+        mime_type = mime_type or "application/octet-stream"
+        response = FileResponse(file_handle, content_type=mime_type)
+        response["Content-Disposition"] = (
             f'attachment; filename="{file_instance.original_name}"'
         )
+        response["X-Content-Type-Options"] = "nosniff"
         return response
-
-
