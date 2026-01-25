@@ -1,27 +1,27 @@
-import {useState} from "react"
-import {useAuth} from "../../providers/auth/useAuth.js"
-import {useNavigate} from "react-router-dom"
-import {Modal} from "../common/Modal.jsx";
-import {validateEmail, validatePassword, validateUsername} from "../../utils/validate.js";
-import {useModal} from "../../providers/modals/useModal.js";
-
+import { useState } from 'react'
+import { useAuth } from '../../providers/auth/useAuth.js'
+import { useNavigate } from 'react-router-dom'
+import { Modal } from '../common/Modal.jsx'
+import { validateEmail, validatePassword, validateUsername } from '../../utils/validate.js'
+import { useModal } from '../../providers/modals/useModal.js'
+import { Button } from '../common/Button.jsx'
 
 export default function RegistrationModal() {
-  const {registration} = useAuth()
-  const {openModal} = useModal()
+  const { registration } = useAuth()
+  const { openModal } = useModal()
 
   const navigate = useNavigate()
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [passwordRepeat, setPasswordRepeat] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
 
-  const [error, setError] = useState("")
-  const [errorPasswordAgree, setErrorPasswordAgree] = useState("")
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [error, setError] = useState('')
+  const [errorPasswordAgree, setErrorPasswordAgree] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     const validUsername = validateUsername(username)
@@ -49,24 +49,23 @@ export default function RegistrationModal() {
     }
 
     try {
-      await registration(
-        {
-          "username": username,
-          "first_name": firstName,
-          "last_name": lastName,
-          "password": password,
-          "email": email
-        }).then(() => {
-          openModal(null)
-          navigate("/storage")
-        })
+      await registration({
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+        email: email,
+      }).then(() => {
+        openModal(null)
+        navigate('/storage')
+      })
     } catch (err) {
       console.log(err)
       setError(err.message)
     }
   }
 
-  const passwordAgree = (value) => {
+  const passwordAgree = value => {
     setPasswordRepeat(value)
     setErrorPasswordAgree(password === value ? '' : 'Пароли не совпадают!')
   }
@@ -132,7 +131,7 @@ export default function RegistrationModal() {
           }}
         />
 
-        <button type="submit">Зарегистрироваться</button>
+        <Button type="submit">Зарегистрироваться</Button>
       </form>
     </Modal>
   )

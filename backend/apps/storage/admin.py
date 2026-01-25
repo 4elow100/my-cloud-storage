@@ -1,3 +1,3 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.storage.models import Folder, File

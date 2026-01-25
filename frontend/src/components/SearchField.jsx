@@ -1,22 +1,27 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 export const SearchField = () => {
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+  const handleSubmit = e => {
+    e.preventDefault()
+  }
 
-    return (
-        <>
-            <div className="search-container">
-                <form className="search-form" onSubmit={handleSubmit}>
-                    <button className="search-btn btn" type="submit" title="Search Button">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                    <input className="search-input" type="search" name="search-input" placeholder="Поиск по названию..."
-                           aria-label="Search Input Field"/>
-                </form>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className="search-container">
+        <form className="search-form" onSubmit={handleSubmit}>
+          <button className="search-btn btn" type="submit" title="Search Button">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+          <input
+            className="search-input"
+            type="search"
+            name="search-input"
+            placeholder="Поиск по названию..."
+            aria-label="Search Input Field"
+          />
+        </form>
+      </div>
+    </>
+  )
 }

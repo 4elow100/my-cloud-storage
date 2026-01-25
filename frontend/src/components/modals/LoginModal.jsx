@@ -1,29 +1,30 @@
-import {useState} from "react"
-import {useAuth} from "../../providers/auth/useAuth.js"
-import {useNavigate} from "react-router-dom"
-import {Modal} from "../common/Modal.jsx";
-import {useModal} from "../../providers/modals/useModal.js";
-
+import { useState } from 'react'
+import { useAuth } from '../../providers/auth/useAuth.js'
+import { useNavigate } from 'react-router-dom'
+import { Modal } from '../common/Modal.jsx'
+import { useModal } from '../../providers/modals/useModal.js'
+import { Button } from '../common/Button.jsx'
 
 export default function LoginModal() {
-  const {login} = useAuth()
-  const {openModal} = useModal()
+  const { login } = useAuth()
+  const { openModal } = useModal()
 
   const navigate = useNavigate()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
 
-  const handleSubmit = async (e) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const handleSubmit = async e => {
     e.preventDefault()
 
     try {
-      await login(username, password)
+      const me = await login(username, password)
       openModal(null)
-      navigate("/storage")
+      me.is_staff ? navigate('/admin') : navigate('/storage')
     } catch (err) {
       console.log(err)
-      setError("Неверный логин или пароль")
+      setError('Неверный логин или пароль')
     }
   }
 
@@ -44,7 +45,7 @@ export default function LoginModal() {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <button type="submit">Войти</button>
+        <Button type="submit">Войти</Button>
       </form>
     </Modal>
   )

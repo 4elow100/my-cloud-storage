@@ -7,12 +7,24 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
+import logging
 import os
 
+import django
 from django.core.wsgi import get_wsgi_application
 
 
+server_logger = logging.getLogger("server")
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', os.getenv("DJANGO_SETTINGS_MODULE"))
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", os.getenv("DJANGO_SETTINGS_MODULE")
+)
 
 application = get_wsgi_application()
+
+server_logger.info(
+    "WSGI server started. Django version: %s", django.get_version()
+)
+server_logger.info(
+    "Settings module: %s", os.environ.get("DJANGO_SETTINGS_MODULE")
+)

@@ -1,11 +1,13 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCloud} from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCloud } from '@fortawesome/free-regular-svg-icons'
+import { useNavigate } from 'react-router-dom'
 
-export const Logo = ({onClick}) => {
+export const Logo = () => {
+  const navigate = useNavigate()
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault()
-    onClick()
+    navigate('/')
   }
 
   return (

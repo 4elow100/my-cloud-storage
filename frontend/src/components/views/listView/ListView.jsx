@@ -1,9 +1,9 @@
-import {FolderRow} from "./FolderRow.jsx";
-import {FileRow} from "./FileRow.jsx";
-import {useStorage} from "../../../providers/storage/useStorage.js";
+import { FolderRow } from './FolderRow.jsx'
+import { FileRow } from './FileRow.jsx'
+import { useStorage } from '../../../providers/storage/useStorage.js'
 
-export const ListView = ({onOpenFolder}) => {
-  const {storageData} = useStorage()
+export const ListView = ({ onOpenFolder }) => {
+  const { storageData } = useStorage()
 
   return (
     <>
@@ -18,7 +18,7 @@ export const ListView = ({onOpenFolder}) => {
       </header>
       <div className="table-content custom-context-menu">
         {storageData['folders'].map(item => (
-          <FolderRow key={item.id} item={item} onDoubleClick={onOpenFolder}/>
+          <FolderRow key={item.id} item={item} onDoubleClick={onOpenFolder} />
         ))}
         {storageData['files'].map(item => (
           <FileRow key={item.id} item={item} />

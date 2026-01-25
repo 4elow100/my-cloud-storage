@@ -6,9 +6,8 @@ import {
   faFileExcel,
   faFileAudio,
   faFileVideo,
-  faFileArchive
+  faFileArchive,
 } from '@fortawesome/free-solid-svg-icons'
-
 
 const FILE_ICONS = {
   pdf: faFilePdf,
@@ -33,17 +32,15 @@ const FILE_ICONS = {
 
   zip: faFileArchive,
   rar: faFileArchive,
-  '7z': faFileArchive
+  '7z': faFileArchive,
 }
-
 
 const getFileExtension = (filename = '') => {
   const parts = filename.split('.')
   return parts.length > 1 ? parts.pop().toLowerCase() : ''
 }
 
-
-export const getFileIcon = (filename) => {
+export const getFileIcon = filename => {
   const ext = getFileExtension(filename)
   return FILE_ICONS[ext] || faFile
 }

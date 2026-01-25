@@ -1,10 +1,10 @@
-import {useAuth} from "../providers/auth/useAuth.js";
-import {useModal} from "../providers/modals/useModal.js";
-
+import { useAuth } from '../providers/auth/useAuth.js'
+import { useModal } from '../providers/modals/useModal.js'
+import { Button } from '../components/common/Button.jsx'
 
 export const HomePage = () => {
-  const {user} = useAuth()
-  const {openModal} = useModal()
+  const { user } = useAuth()
+  const { openModal } = useModal()
 
   return (
     <>
@@ -13,8 +13,8 @@ export const HomePage = () => {
       <h2>Добро пожаловать!</h2>
       <div className="app-information-block">
         <p>
-          Это веб-приложение предназначено для хранения, управления и обмена файлами в личном файловом хранилище.
-          После регистрации вы сможете:
+          Это веб-приложение предназначено для хранения, управления и обмена файлами в личном
+          файловом хранилище. После регистрации вы сможете:
         </p>
         <ul>
           <li>Загружать файлы и создавать папки;</li>
@@ -62,12 +62,16 @@ export const HomePage = () => {
       </div>
 
       <div className="user-buttons-area">
-        {!user &&
+        {!user && (
           <>
-            <button onClick={() => openModal('login')}>Войти</button>
-            <button onClick={() => openModal('registration')}>Зарегистрироваться</button>
+            <Button type="button" onClick={() => openModal('login')}>
+              Войти
+            </Button>
+            <Button type="button" onClick={() => openModal('registration')}>
+              Зарегистрироваться
+            </Button>
           </>
-        }
+        )}
       </div>
     </>
   )

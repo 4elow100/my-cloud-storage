@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('storage', '0003_file_folder_folder_parent'),
+        ("storage", "0003_file_folder_folder_parent"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='file',
-            name='file',
-            field=models.FileField(upload_to=apps.storage.models.user_file_path),
+            model_name="file",
+            name="file",
+            field=models.FileField(
+                upload_to=apps.storage.models.user_file_path
+            ),
         ),
     ]

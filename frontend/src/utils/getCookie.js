@@ -1,9 +1,9 @@
 export default function getCookie(name) {
   const cookieString = document.cookie
-  const cookies = cookieString.split("; ")
+  const cookies = cookieString.split('; ')
 
   for (let cookie of cookies) {
-    const [key, value] = cookie.split("=")
+    const [key, value] = cookie.split('=')
     if (key === name) return decodeURIComponent(value)
   }
 

@@ -16,17 +16,40 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='File',
+            name="File",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('original_name', models.CharField(max_length=255)),
-                ('file', models.FileField(upload_to='user_files/')),
-                ('size', models.BigIntegerField()),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True)),
-                ('last_download_at', models.DateTimeField(blank=True, null=True)),
-                ('comment', models.TextField(blank=True)),
-                ('public_token', models.UUIDField(blank=True, default=uuid.uuid4, null=True, unique=True)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='files', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("original_name", models.CharField(max_length=255)),
+                ("file", models.FileField(upload_to="user_files/")),
+                ("size", models.BigIntegerField()),
+                ("uploaded_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "last_download_at",
+                    models.DateTimeField(blank=True, null=True),
+                ),
+                ("comment", models.TextField(blank=True)),
+                (
+                    "public_token",
+                    models.UUIDField(
+                        blank=True, default=uuid.uuid4, null=True, unique=True
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="files",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

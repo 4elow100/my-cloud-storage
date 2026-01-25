@@ -1,24 +1,27 @@
-import {useEffect, useState} from "react";
-import {useStorage} from "../../providers/storage/useStorage.js";
-import {Modal} from "../common/Modal.jsx";
-import {useModal} from "../../providers/modals/useModal.js";
+import { useEffect, useState } from 'react'
+import { useStorage } from '../../providers/storage/useStorage.js'
+import { Modal } from '../common/Modal.jsx'
+import { useModal } from '../../providers/modals/useModal.js'
 
 export const ItemDetailsModal = () => {
-  const {getItemInfo, folderPath} = useStorage()
-  const {openModal} = useModal()
+  const { getItemInfo, folderPath } = useStorage()
+  const { openModal } = useModal()
+
   const [data, setData] = useState({})
 
   useEffect(() => {
-    getItemInfo((d) => setData({
-      name: d.name || d.original_name || null,
-      size: d.size || null,
-      uploaded_at: d.uploaded_at || d.created_at || null,
-      last_download_at: d.last_download_at || null,
-      comment: d.comment || null,
-      share_link: d.public_token || null
-    }))
+    getItemInfo(d =>
+      setData({
+        name: d.name || d.original_name || null,
+        size: d.size_formatted || null,
+        uploaded_at: d.uploaded_at || d.created_at || null,
+        last_download_at: d.last_download_at || null,
+        comment: d.comment || null,
+        share_link: d.public_token ? window.location.origin + '/' + d.public_token + '/' : null,
+      })
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <>

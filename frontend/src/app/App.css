@@ -1,584 +1,763 @@
 #root {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    min-width: 1000px;
-    height: 100vh;
-    margin: 0 auto;
-    padding: 0;
-    text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  min-width: 1000px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0;
+
+  text-align: center;
+}
+
+.app {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  height: 100%;
+}
+
+.common-btn {
+  padding: 5px 10px;
+
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: white;
+  outline: none;
+}
+
+.common-btn:hover {
+  background-color: #f7f7f7;
+}
+
+.common-btn:active {
+  background-color: white;
 }
 
 .btn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .main-container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+  align-items: center;
+
+  width: 100%;
+  max-height: 100%;
 }
 
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgb(0 0 0 / 50%);
+  inset: 0;
 }
 
 .modal {
-    position: relative;
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    min-width: 300px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-width: 300px;
+  max-width: 350px;
+  padding: 2rem;
+
+  background: white;
+  border-radius: 8px;
+}
+
+.modal p,
+.modal div {
+  overflow-wrap: break-word;
+}
+
+.modal input {
+  padding: 5px 10px;
+
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: transparent;
 }
 
 .modal-close-btn {
-    box-sizing: border-box;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 30px;
-    width: 30px;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 
-    text-align: center;
-    border-radius: 50%;
-    background-color: transparent;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+
+  border-radius: 50%;
+  text-align: center;
+  background-color: transparent;
 }
 
 .modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .modal p {
-    margin: 0;
+  margin: 0;
 }
 
 .modal form button {
-    align-self: center;
-    height: 100%;
-    padding: 5px 10px;
+  align-self: center;
+  height: 100%;
+  padding: 5px 10px;
 
-    background-color: transparent;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
 }
 
 .error {
-    color: red;
-    margin-top: 0.5rem;
+  color: red;
+  margin-top: 0.5rem;
 }
 
 .context-menu-container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 5px;
-    padding: 5px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
 
-    background-color: white;
-    border: 1px solid lightgray;
-    border-radius: 20px;
+  max-width: 185px;
+  padding: 5px;
+
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  background-color: white;
 }
 
 .context-menu-part {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
 }
 
-.context-menu-part:after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 6px;
-    right: 6px;
-    height: 1px;
-    background-color: #ccc;
+.context-menu-part::after {
+  position: absolute;
+  content: '';
+  right: 6px;
+  bottom: -3px;
+  left: 6px;
+  height: 1px;
+
+  background-color: #ccc;
 }
 
 .context-menu-option {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 5px;
-    padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
 
-    border-radius: 10px;
-    user-select: none;
+  padding: 0 5px;
+
+  border-radius: 10px;
+  user-select: none;
 }
 
 .context-menu-option:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.context-menu-option span {
+  text-align: left;
 }
 
 .message-alert-container {
-    box-sizing: border-box;
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    padding: 10px 20px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 60px;
+  right: 10px;
 
-    border-radius: 20px;
-    background-color: white;
+  padding: 10px 20px;
+
+  border-radius: 20px;
+  background-color: white;
 }
 
+.confirm-modal-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
-/*========================================================
+/* ========================================================
     HOME PAGE STYLES
- ========================================================*/
+ ======================================================== */
 
 .app-information-block {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 960px;
-    padding: 20px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    border-radius: 10px;
-    background-color: #f1f1f1;
+  width: 960px;
+  padding: 20px 30px;
+
+  border-radius: 10px;
+  background-color: #f1f1f1;
 }
 
 .app-information-block ul {
-    margin: 0;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    text-align: left;
+  margin: 0;
+  padding-bottom: 20px;
+  padding-right: 20px;
+
+  text-align: left;
 }
 
 .registration-requirements {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .requirements-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-flow: row nowrap;
 }
 
 .requirement-block {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
+  display: flex;
+  flex-direction: column;
 
-    border-radius: 10px;
-    background-color: #f1f1f1;
+  width: 300px;
+
+  border-radius: 10px;
+  background-color: #f1f1f1;
 }
 
 .requirement-block ul {
-    margin: 0;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    text-align: left;
+  margin: 0;
+  padding-bottom: 20px;
+  padding-right: 20px;
+
+  text-align: left;
 }
 
 .app-additional-info {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 960px;
-    padding: 20px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 960px;
+  padding: 20px 30px;
 }
 
 .app-additional-info p {
-    margin: 0;
-    font-size: 14px;
+  margin: 0;
+  font-size: 14px;
 }
 
 .user-buttons-area {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
-.user-buttons-area button {
-    height: 100%;
-    padding: 5px 10px;
-
-    background-color: transparent;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
-}
-
-
-/*========================================================
+/* ========================================================
     MAIN HEADER STYLES
- ========================================================*/
+ ======================================================== */
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
-    height: 50px;
-    margin: 0 auto 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 
-    background-color: white;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto 30px;
+
+  background-color: white;
 }
 
 .header-logo {
-    box-sizing: border-box;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 150px;
-    height: 50px;
-    padding-left: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+
+  width: 150px;
+  height: 50px;
+  padding-left: 10px;
 }
 
 .header-cloud-icon {
-    width: 30px;
-    height: 30px;
-
+  width: 30px;
+  height: 30px;
 }
 
-.header-search-area, .header-user-area {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+.header-search-area,
+.header-user-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
-
 
 .search-container {
-    display: flex;
-    flex-grow: 1;
-    flex-basis: 0;
-    width: 300px;
-    height: calc(100% - 20px);
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 0;
 
-    border: 1px solid gray;
-    border-radius: 15px;
+  width: 300px;
+  height: calc(100% - 20px);
+
+  border: 1px solid gray;
+  border-radius: 15px;
 }
 
 .search-form {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .search-input {
-    flex: 1 1 auto;
-    height: 100%;
-    padding: 0 10px;
+  flex: 1 1 auto;
 
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    background-color: transparent;
+  height: 100%;
+  padding: 0 10px;
+
+  border: none;
+  border-radius: 15px;
+  background-color: transparent;
+  outline: none;
 }
 
 .search-btn {
-    position: relative;
-    box-sizing: border-box;
-    width: 30px;
-    height: 30px;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  position: relative;
 
-    background-color: transparent;
-    border: none;
-    outline: none;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  background-color: transparent;
+  outline: none;
 }
 
-.search-btn:after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    bottom: 5px;
-    right: 0;
-    width: 1px;
-    background-color: #ccc;
+.search-btn::after {
+  position: absolute;
+  content: '';
+  top: 5px;
+  right: 0;
+  bottom: 5px;
+
+  width: 1px;
+
+  background-color: #ccc;
 }
 
 .user-profile-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 0 10px 0 20px;
-    gap: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 0 10px 0 20px;
 }
 
-.user-profile-container:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 1px;
-    background-color: #ccc;
+.user-profile-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 1px;
+
+  background-color: #ccc;
 }
 
 .user-profile-icon {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .user-profile-btn {
-    height: 100%;
-    padding: 5px 10px;
+  height: 100%;
+  padding: 5px 10px;
 
-    background-color: transparent;
-    border: 1px solid lightgray;
-    border-radius: 15px;
-    outline: none;
-    cursor: pointer;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
 }
 
-
-/*========================================================
+/* ========================================================
     STORAGE PAGE STYLES
- ========================================================*/
+ ======================================================== */
 
-.upload-file-btn {
-    height: 100%;
-    padding: 0 10px;
+.storage-folder-path-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-    background-color: transparent;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    outline: none;
+.storage-folder-path-container span {
+  margin: 0 5px;
+}
+
+.storage-folder-path-container div {
+  padding: 0 5px;
+  border-radius: 10px;
+}
+
+.storage-folder-path-container div:hover {
+  background-color: #dadada;
 }
 
 .storage-container {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-    padding: 20px 50px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 30px;
 
+  width: 100%;
+  padding: 20px 50px 0;
 }
 
 .storage-header {
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 
-    background-color: #f1f1f1;
-    border-radius: 20px;
+  width: 100%;
+  padding: 20px 30px;
 
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  user-select: none;
 }
 
 .storage-header-actions {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
 }
 
 .storage-list-row {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    border-radius: 10px;
+  padding: 0 20px;
+
+  border-radius: 10px;
 }
 
 .storage-list-row:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .storage-list-row div {
-    user-select: none;
+  user-select: none;
 }
 
 .storage-content .selected {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
-.storage-list-row:after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    right: 10px;
-    left: 10px;
-    height: 1px;
-    background-color: #ccc;
+.storage-list-row::after {
+  position: absolute;
+  content: '';
+  right: 10px;
+  bottom: -5px;
+  left: 10px;
+
+  height: 1px;
+
+  background-color: #ccc;
 }
 
 .storage-content {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: stretch;
 }
 
 .table-header {
-    box-sizing: border-box;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    background-color: #f7f7f7;
-    border-radius: 20px;
+  padding: 20px;
+
+  border-radius: 20px;
+  background-color: #f7f7f7;
 }
 
 .table-content {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: calc(100vh - 320px);
-    padding: 10px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
 
-    overflow: scroll;
+  max-height: calc(100vh - 320px);
+  padding: 10px 0;
+
+  overflow: auto;
+  user-select: none;
 }
 
 .grid-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    align-items: start;
-    gap: 20px;
+  display: grid;
+  align-items: start;
+  gap: 20px;
 
-    width: 100%;
-    max-height: calc(100vh - 320px);
+  width: 100%;
+  max-height: calc(100vh - 320px);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 
-    overflow: scroll;
+  overflow: auto;
+  user-select: none;
 }
 
 .storage-list-row .storage-item-icon {
-    box-sizing: border-box;
-    width: 35px;
-    height: 35px;
+  box-sizing: border-box;
+
+  width: 35px;
+  height: 35px;
 }
 
 .storage-item .storage-item-icon {
-    box-sizing: border-box;
-    width: 70px;
-    height: 70px;
+  box-sizing: border-box;
+
+  width: 70px;
+  height: 70px;
 }
 
 .storage-item {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.create-item-btn {
-    height: 100%;
-    padding: 0 10px;
-
-    background-color: transparent;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    outline: none;
+.storage-item span {
+  user-select: none;
 }
 
 .storage-row-actions {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
-.storage-row-delete, .storage-row-details {
-    width: 20px;
+.storage-row-delete,
+.storage-row-details {
+  width: 20px;
 }
 
 .storage-row-comment {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .storage-row-name {
-    text-align: left;
-    padding-left: 10px;
+  text-align: left;
+  padding-left: 10px;
 }
 
-
-/*========================================================
+/* ========================================================
     COLUMNS STYLE
- ========================================================*/
+ ======================================================== */
 
 .col1 {
-    width: 35px;
+  width: 35px;
 }
 
 .col2 {
-    flex-basis: 0;
-    flex-grow: 1;
+  flex: 1 0 0;
 }
 
 .col3 {
-    flex-basis: 100px;
+  flex-basis: 100px;
+  flex-shrink: 0;
 }
 
-.col4, .col5 {
-    flex-basis: 100px;
+.col4,
+.col5 {
+  flex-basis: 100px;
+  flex-shrink: 0;
 }
 
 .col6 {
-    flex-basis: 150px;
+  flex-basis: 150px;
+  flex-shrink: 0;
 }
 
 .col7 {
-    flex-basis: 60px;
+  flex-basis: 60px;
+  flex-shrink: 0;
 }
 
+.adm-col1 {
+  flex: 1 0 150px;
+}
 
-/*========================================================
-    LOGIN MODAL STYLES
- ========================================================*/
+.adm-col2 {
+  flex: 1 0 150px;
+}
 
+.adm-col3 {
+  flex: 1 0 90px;
+}
 
+.adm-col4 {
+  flex: 1 0 90px;
+}
 
+.adm-col5 {
+  flex: 1 0 70px;
+}
 
+.adm-col6 {
+  flex: 1 0 70px;
+}
 
+.adm-col7 {
+  flex: 1 0 70px;
+}
 
+.adm-col8 {
+  flex: 1 0 80px;
+}
 
-/*========================================================
-    REGISTRATION MODAL STYLES
- ========================================================*/
+.adm-col9 {
+  display: flex;
+  flex: 1 0 30px;
+  justify-content: center;
+}
 
+/* ========================================================
+    ADMIN INTERFACE STYLES
+ ======================================================== */
 
+.admin-container {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
+  width: 100%;
+  padding: 20px 50px 0;
 
-/*========================================================
-    CREATE FOLDER MODAL STYLES
- ========================================================*/
+  user-select: none;
+}
 
+.admin-header-title {
+  align-self: flex-start;
 
+  padding: 10px 20px;
 
-/*========================================================
-    UPLOAD FILE MODAL STYLES
- ========================================================*/
+  background-color: lightgray;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
 
+.admin-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
+  margin-bottom: 30px;
+  padding: 20px;
 
+  border-radius: 0 20px 20px;
+  background-color: lightgray;
+}
 
+.admin-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
 
+  max-height: calc(100vh - 320px);
+  padding: 10px 0;
+
+  overflow: auto;
+  user-select: none;
+}
+
+.admin-user-row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  padding: 5px 20px;
+
+  border-radius: 10px;
+}
+
+.admin-user-row.selected {
+  background-color: #f1f1f1;
+}
+
+.admin-user-row div {
+  text-align: center;
+}
+
+.admin-user-row:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-user-row::after {
+  position: absolute;
+  content: '';
+  right: 10px;
+  bottom: -5px;
+  left: 10px;
+
+  height: 1px;
+
+  background-color: #ccc;
+}

@@ -1,10 +1,9 @@
-import {ContextMenuContext} from "./ContextMenuContext.js";
-import {useState} from "react";
+import { ContextMenuContext } from './ContextMenuContext.js'
+import { useState } from 'react'
 
-
-export const ContextMenuProvider = ({children}) => {
-  const [contextMenuType, setContextMenuType] = useState(null);
-  const [contextMenuPosition, setContextMenuPosition] = useState({left: 0, top: 0});
+export const ContextMenuProvider = ({ children }) => {
+  const [contextMenuType, setContextMenuType] = useState(null)
+  const [contextMenuPosition, setContextMenuPosition] = useState({ left: 0, top: 0 })
   const [currentElemId, setCurrentElemId] = useState(null)
   const [currentFileName, setCurrentFileName] = useState(null)
   const [currentElemRef, setCurrentElemRef] = useState(undefined)
@@ -15,10 +14,32 @@ export const ContextMenuProvider = ({children}) => {
 
     if (contextMenuType) closeContextMenu(null)
 
-    setContextMenuPosition({
-      left: e.pageX,
-      top: e.pageY
-    })
+    const style = {}
+    const menuHeight = {
+      file: 152,
+      folder: 94,
+    }
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+    const cursorX = e.clientX
+    const cursorY = e.clientY
+
+    const xOffset = viewportWidth - cursorX
+    const yOffset = viewportHeight - cursorY
+
+    if (xOffset < 185) {
+      style.right = xOffset
+    } else {
+      style.left = e.pageX
+    }
+
+    if (yOffset < menuHeight[menuType]) {
+      style.bottom = yOffset
+    } else {
+      style.top = e.pageY
+    }
+
+    setContextMenuPosition(style)
 
     setContextMenuType(menuType)
     setCurrentElemId(data_id)
@@ -29,7 +50,7 @@ export const ContextMenuProvider = ({children}) => {
 
   const closeContextMenu = () => {
     setContextMenuType(null)
-    currentElemRef && currentElemRef.classList.remove("selected")
+    currentElemRef && currentElemRef.classList.remove('selected')
     setCurrentElemRef(undefined)
     setCurrentElemId(null)
     setCurrentElemAPILink('')
@@ -40,9 +61,23 @@ export const ContextMenuProvider = ({children}) => {
   }
 
   return (
-    <ContextMenuContext.Provider value={{openContextMenu, closeContextMenu, hideContextMenu,
-      setCurrentFileName, setCurrentElemAPILink, setCurrentElemRef, setCurrentElemId,
-      currentFileName, currentElemAPILink, currentElemId, contextMenuType, contextMenuPosition}}>
+    <ContextMenuContext.Provider
+      value={{
+        openContextMenu,
+        closeContextMenu,
+        hideContextMenu,
+        setCurrentFileName,
+        setCurrentElemAPILink,
+        setCurrentElemRef,
+        setCurrentElemId,
+        currentFileName,
+        currentElemAPILink,
+        currentElemId,
+        contextMenuType,
+        contextMenuPosition,
+        currentElemRef,
+      }}
+    >
       {children}
     </ContextMenuContext.Provider>
   )

@@ -1,18 +1,19 @@
-import {Modal} from "../common/Modal.jsx";
-import {useStorage} from "../../providers/storage/useStorage.js";
-import {useModal} from "../../providers/modals/useModal.js";
-import {useContextMenu} from "../../providers/contextMenu/useContextMenu.js";
-
+import { useStorage } from '../../providers/storage/useStorage.js'
+import { useContextMenu } from '../../providers/contextMenu/useContextMenu.js'
+import { useAdmin } from '../../providers/admin/useAdmin.js'
+import { ConfirmModal } from './ConfirmModal.jsx'
+import { useLocation } from 'react-router-dom'
 
 export const DeleteConfirmModal = () => {
-  const {openModal} = useModal()
-  const {currentFileName} = useContextMenu()
-  const {deleteItem} = useStorage()
+  const { currentFileName } = useContextMenu()
+  const { deleteItem } = useStorage()
+  const { deleteUser } = useAdmin()
 
+  const location = useLocation()
 
   const handleDelete = () => {
     try {
-      deleteItem()
+      location.pathname === '/admin' ? deleteUser() : deleteItem()
     } catch (err) {
       console.log(err)
     }
@@ -20,12 +21,13 @@ export const DeleteConfirmModal = () => {
 
   return (
     <>
-      <Modal onClose={() => openModal(null)}>
-        <h2>Подтверждение</h2>
-        <p>Вы уверены, что хотите удалить {currentFileName}?</p>
-        <button type="button" onClick={handleDelete}>Да</button>
-        <button type="button" onClick={() => openModal(null)}>Отмена</button>
-      </Modal>
+      <ConfirmModal
+        message={`Вы уверены, что хотите удалить ${
+          location.pathname === '/admin' ? 'пользователя ' : ''
+        }
+      ${currentFileName}?`}
+        callback={handleDelete}
+      />
     </>
   )
 }

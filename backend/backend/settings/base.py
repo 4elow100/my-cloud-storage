@@ -9,31 +9,37 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
+import logging
 import os
 
-from django.conf.global_settings import STATICFILES_STORAGE
 from dotenv import load_dotenv
 from pathlib import Path
+
+
+server_logger = logging.getLogger("server")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 load_dotenv(BASE_DIR / ".env")
 
-MEDIA_ROOT = BASE_DIR.parent / 'MyCloudStorage'
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent / "MyCloudStorage"
+MEDIA_URL = "/media/"
 
-STATIC_URL = '/assets/'
-STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
+STATIC_URL = "/assets/"
+STATIC_ROOT = BASE_DIR.parent / "staticfiles"
 
-VITE_BUILD_DIR = BASE_DIR.parent / 'frontend' / 'dist'
-VITE_BUILD_STATIC_ROOT = VITE_BUILD_DIR / 'assets'
+VITE_BUILD_DIR = BASE_DIR.parent / "frontend" / "dist"
+VITE_BUILD_STATIC_ROOT = VITE_BUILD_DIR / "assets"
 
 STATICFILES_DIRS = [
     VITE_BUILD_STATIC_ROOT,
 ]
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = (
+    "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,71 +51,72 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'corsheaders',
-
-    'apps.users',
-    'apps.storage',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "corsheaders",
+    "apps.users",
+    "apps.storage",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "middleware.middleware.AutoLoggingMiddleware",
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
-    ]
+    ],
+    "EXCEPTION_HANDLER": "backend.utils.custom_exception_handler",
 }
 
-ROOT_URLCONF = 'backend.urls'
+ROOT_URLCONF = "backend.urls"
 
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [VITE_BUILD_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [VITE_BUILD_DIR],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'backend.wsgi.application'
+WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD")
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
     }
 }
 
@@ -118,25 +125,25 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Asia/Yekaterinburg'
+TIME_ZONE = "Asia/Yekaterinburg"
 
 USE_I18N = True
 
@@ -146,13 +153,104 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SESSION_COOKIE_AGE = int(os.getenv("SESSION_COOKIE_AGE", 86400))
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
 CORS_ALLOW_CREDENTIALS = True
+
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module}:{lineno} {message}",
+            "style": "{",
+        },
+        "console": {
+            "format": "\033[1;30m{asctime}\033[0m "
+            "\033[1;34m{levelname}\033[0m "
+            "{message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "server_file": {
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "server.log"),
+            "formatter": "verbose",
+            "level": "INFO",
+            "encoding": "utf-8",
+        },
+        "request_file": {
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "requests.log"),
+            "formatter": "verbose",
+            "level": "INFO",
+            "encoding": "utf-8",
+        },
+        "error_file": {
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "errors.log"),
+            "formatter": "verbose",
+            "level": "ERROR",
+            "encoding": "utf-8",
+        },
+        "body_file": {
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "bodies.log"),
+            "formatter": "verbose",
+            "level": "DEBUG",
+            "encoding": "utf-8",
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console",
+            "level": "INFO",
+        },
+    },
+    "loggers": {
+        "server": {
+            "handlers": ["server_file", "console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "requests": {
+            "handlers": ["request_file", "error_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "bodies": {
+            "handlers": ["body_file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "django": {
+            "handlers": ["error_file"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
+
+
+server_logger.info(
+    "Django settings loaded. DEBUG=%s, ENV=%s",
+    logging.DEBUG,
+    os.environ.get("ENVIRONMENT", "unknown"),
+)
+
+
+if not SECRET_KEY or len(SECRET_KEY) < 20:
+    server_logger.error("Insecure SECRET_KEY detected!")
+
+
+if DATABASES["default"]["ENGINE"] == "django.db.backends.sqlite3":
+    server_logger.warning("Using SQLite in production is not recommended!")

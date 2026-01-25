@@ -7,18 +7,30 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('storage', '0002_folder'),
+        ("storage", "0002_folder"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='file',
-            name='folder',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='files', to='storage.folder'),
+            model_name="file",
+            name="folder",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="files",
+                to="storage.folder",
+            ),
         ),
         migrations.AddField(
-            model_name='folder',
-            name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='storage.folder'),
+            model_name="folder",
+            name="parent",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="children",
+                to="storage.folder",
+            ),
         ),
     ]
