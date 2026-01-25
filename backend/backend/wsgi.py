@@ -12,7 +12,9 @@ import os
 
 import django
 from django.core.wsgi import get_wsgi_application
+from dotenv import load_dotenv
 
+load_dotenv()
 
 server_logger = logging.getLogger("server")
 
