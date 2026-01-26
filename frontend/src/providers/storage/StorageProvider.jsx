@@ -224,12 +224,13 @@ export const StorageProvider = ({ children }) => {
         }
       )
 
-      const data = await res.json()
 
       if (!res.ok) {
-        const message = data['name'] ? data['name'][0] : 'Ошибка при получении данных'
+        const data = await res.json()
+        const message = data['error'] ? data['error'] : 'Ошибка при получении данных'
         showAlert(message, 'red')
       } else {
+        const data = await res.json()
         setData(data)
       }
     } catch {
@@ -253,7 +254,7 @@ export const StorageProvider = ({ children }) => {
       const data = await res.json()
 
       if (!res.ok) {
-        const message = data['name'] ? data['name'][0] : 'Ошибка при получении данных'
+        const message = data['error'] ? data['error'] : 'Ошибка при получении данных'
         showAlert(message, 'red')
       } else {
         setData(data)
